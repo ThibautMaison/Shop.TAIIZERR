@@ -28,9 +28,11 @@ class ComposantManager extends Model
         $req->execute();
         $mesBoutique = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
+        shuffle($mesBoutique);
         foreach ($mesBoutique as $Composant) {
             $l = new Composant($Composant["id"], $Composant["Name"], $Composant["Description"], $Composant["Prix"], $Composant["Lien"], $Composant["image"], $Composant["idCategorie"]);
             $this->ajoutBoutique($l);
+
         }
     }
 
@@ -43,6 +45,7 @@ class ComposantManager extends Model
         ));
         $mesBoutique = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
+        shuffle($mesBoutique);
 
         foreach ($mesBoutique as $boutique) {
             $l = new Composant($boutique["id"], $boutique["Name"], $boutique["Description"], $boutique["Prix"], $boutique["Lien"], $boutique["image"], $boutique["idCategorie"]);
@@ -56,6 +59,7 @@ class ComposantManager extends Model
         $req->execute();
         $mesBoutique = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
+        shuffle($mesBoutique);
 
 
         foreach ($mesBoutique as $Stuffperso) {
@@ -129,14 +133,23 @@ class ComposantManager extends Model
         $stmt->closeCursor();
     }
 
-    public function selectALL()
+    public function SelectAllCategories()
     {
-        $req = "
-            select libelle from categorie";
+        $req = "SELECT  libelle from categorie";
         $stmt = $this->getBdd()->prepare($req);
         $stmt->execute();
         $resultat = $stmt->fetchAll(PDO::FETCH_ASSOC);
         $stmt->closeCursor();
         return $resultat;
     }
+
+    public function SelectAllNomComposant()
+    {   $req = "SELECT Name FROM Boutique";
+        $stmt = $this->getBdd()->prepare($req);
+        $stmt->execute();
+        $resultat = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $stmt->closeCursor();
+        return $resultat;
+    }
+
 }
