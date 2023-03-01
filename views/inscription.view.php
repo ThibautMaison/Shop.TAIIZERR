@@ -4,26 +4,25 @@ $erreur = "";
 ?>
 
 
-<!-- Affichage du formulaire -->
-<form method="POST" action="" class="d-grid gap-2 col-6 mx-auto mt-5">
-    <div class="form-group mb-2" style="margin-top: 50px;">
-        <label class="text-white" for="Pseudo">Pseudo :</label>
-        <input type="text" class="form-control" id="pseudo" name="Pseudo" placeholder="Entrez votre pseudo">
+<form method="POST" action="" class="d-grid gap-2 col-12 col-md-8 mx-auto mt-5 rounded shadow p-5">
+    <div class="form-group mb-3">
+        <label for="pseudo" class="form-label text-muted fs-5 mb-2">Pseudo :</label>
+        <input type="text" class="form-control rounded-pill py-3 px-4 border-0 shadow-sm" id="pseudo" name="Pseudo" placeholder="Entrez votre pseudo">
         <div id="confirmepseudo"></div>
     </div>
-    <div class="form-group mb-2">
-        <label class="text-white" for="Email">Email :</label>
-        <input type="text" class="form-control" id="email" name="Email" placeholder="Entrez votre email">
+    <div class="form-group mb-3">
+        <label for="email" class="form-label text-muted fs-5 mb-2">Email :</label>
+        <input type="text" class="form-control rounded-pill py-3 px-4 border-0 shadow-sm" id="email" name="Email" placeholder="Entrez votre email">
         <div id="confirmeemail"></div>
     </div>
     <div class="form-group mb-4">
-        <label class="text-white" for="Password">Mot de passe :</label>
-        <input type="password" class="form-control" id="password" name="Password" placeholder="Entrez votre mot de passe">
+        <label for="password" class="form-label text-muted fs-5 mb-2">Mot de passe :</label>
+        <input type="password" class="form-control rounded-pill py-3 px-4 border-0 shadow-sm" id="password" name="Password" placeholder="Entrez votre mot de passe">
         <div id="confirmepassword"></div>
     </div>
-    
-    <div class="d-flex justify-content-center">
-        <button type="submit" name="Sinscrire" class="btn btn-outline-light rounded-pill mb-5 d-grid gap-2 col-6 mx-auto">S'inscrire</button>
+
+    <div class="d-grid gap-2 mt-3">
+        <button type="submit" name="Sinscrire" class="btn btn-primary rounded-pill py-3 fs-5 fw-bold">S'inscrire</button>
     </div>
     <?php
 if (isset($_POST['Sinscrire'])) {
@@ -65,7 +64,7 @@ if (isset($_POST['Sinscrire'])) {
 ?>
 
 <?php if (!empty($erreur)): ?>
-    <div class="alert alert-danger">
+    <div class="alert alert-danger mt-4">
         <?= $erreur ?>
     </div>
 <?php endif; ?>

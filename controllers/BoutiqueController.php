@@ -16,48 +16,33 @@ class BoutiqueController {
     private $StuffpersoManager;
 
     public function __construct(){
-        $this->instantiateManagers();
-    }
-    
-    private function instantiateManagers() {
         foreach ($this->managers as $categoryId => $managerClass) {
             $this->{$managerClass} = new ComposantManager;
             $this->{$managerClass}->chargerBoutiqueParCategorie($categoryId);
         }
-        $this->ComposantManager=new ComposantManager;
+        $this->ComposantManager = new ComposantManager;
         $this->ComposantManager->chargementBoutique();
-        $this->StuffpersoManager=new ComposantManager;
+        $this->StuffpersoManager = new ComposantManager;
         $this->StuffpersoManager->chargementBoutiqueStuffperso();
     }
 
     public function afficherBoutiqueParCategorie($categoryId = null){
-        if ($categoryId === null) {
-            $Boutique=$this->ComposantManager->getBoutique();
-            require "views/Boutique.view.php";
-            return;
-        }
-
-        $managerClass = $this->managers[$categoryId];
-        if (!$managerClass) {
-            throw new Exception("Invalid category id: {$categoryId}");
-        }
-        
-        $Boutique = $this->{$managerClass}->getBoutique();
-        require "views/{$managerClass}.view.php";
+        $Boutique = $categoryId === null ? $this->ComposantManager->getBoutique() : $this->{$this->managers[$categoryId]}->getBoutique();
+        require $categoryId === null ? "views/Boutique.view.php" : "views/{$this->managers[$categoryId]}.view.php";
     }
-    
+
     public function afficherBoutiqueAdmin(){
-        $Boutique=$this->ComposantManager->getBoutique();
+        $Boutique = $this->ComposantManager->getBoutique();
         require "views/AdminBoutique.view.php";
     }
 
     public function afficherBoutiqueMonStuff(){
-        $Boutique=$this->StuffpersoManager->getBoutique();
+        $Boutique = $this->StuffpersoManager->getBoutique();
         require "views/Stuffperso.view.php";
     }
 
     public function afficherComposant($id){
-        $Composant=$this->ComposantManager->getComposantById($id);
+        $Composant = $this->ComposantManager->getComposantById($id);
         require "views/afficherComposant.view.php";
     }
 

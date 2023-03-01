@@ -16,13 +16,10 @@ ob_start();
         </div>
     </div>
 </section>
-
-
-<div id="target" class="container-fluid pt-5">
+<div id="target" class="container-fluid pt-5 px-5">
     <div class="row px-xl-3">
         <div class="col-lg-3 col-md-4">
-        <?php require "views/AllCategorie.view.php"; ?>
-
+        <?php require "AllCategorie.view.php"; ?>
         </div>
         <?php require "AllComposant.view.php";?>
     </div>

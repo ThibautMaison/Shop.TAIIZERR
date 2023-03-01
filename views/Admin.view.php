@@ -7,7 +7,7 @@ if (isset($_SESSION['Pseudo'])) {
     <div class="d-flex justify-content-center container flex-wrap w-75 mt-5">
       <a href="<?= URL ?>Admin/boutique" class="link-dark text-decoration-none mt-5">
         <div class="d-grid ms-4 mb-4 ">
-          <div class="card mx-auto bg-white">
+          <div class="card mx-auto bg-white" style="transition: transform 0.5s ease;">
             <div class="" style="background-color: #c7c7c7;">
               <img src="/public/Accueil/AdminBoutique.png" class=" d-grid gap-2 d-flex justify-content-center services-list my-3 mx-3" style="height: 300px;width: 300px;">
             </div>
@@ -17,7 +17,7 @@ if (isset($_SESSION['Pseudo'])) {
       </a>
       <a href="<?= URL ?>Admin/users" class="link-dark text-decoration-none mt-5">
         <div class="d-grid ms-4 mb-4 ">
-          <div class="card mx-auto bg-white">
+          <div class="card mx-auto bg-white" style="transition: transform 0.5s ease;">
             <div style="background-color: #c7c7c7;">
               <img src="/public/Accueil/AdminUser.png" class=" d-grid gap-2 d-flex justify-content-center services-list my-3 mx-3" style="height: 300px;width: 300px;">
             </div>

@@ -1,18 +1,43 @@
-<div class="col py-3 container">
-            <div class="d-flex flex-wrap w-100 mx-3">
-                <?php
-                for ($i = 0; $i < count($Boutique); $i++) : ?>
-                    <a href="<?= URL ?>Boutique/l/<?= $Boutique[$i]->getId() ?>" class="link-dark text-decoration-none">
-                        <div class="d-grid ms-4 mb-4">
-                            <div class="card mx-auto bg-white zoom"  style="transition: transform 0.5s ease;" >
-                                <div style="background-color: #c7c7c7;">
-                                    <img src="/public/images/<?= $Boutique[$i]->getImage() ?>" class=" d-grid gap-2 d-flex justify-content-center services-list my-3 mx-3" style="height: 225px;width: 250px;">
-                                </div>
-                                <h5 class=" d-grid gap-2 mx-auto d-flex justify-content-center my-3 "><?= $Boutique[$i]->getName() ?></h5>
-                                <h5 class=" d-grid gap-2 mx-auto d-flex justify-content-center mb-3"><?= $Boutique[$i]->getPrix() ?>€</h5>
-                            </div>
-                        </div>
-                    </a>
-                <?php endfor ?>
-            </div>
-        </div>
+<div class="col py-3">
+<form method="post" action="" class="d-flex justify-content-end mb-3">
+    <div class="input-group">
+        <input type="text" class="form-control rounded-start rounded-end" placeholder="Search by name" id="search-input" >
+    </div>
+</form>
+    <div class="d-grid gap-4 mx-auto" style="grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));">
+        <?php foreach ($Boutique as $item) : ?>
+            <a href="<?= URL ?>Boutique/l/<?= $item->getId() ?>#target" class="link-dark text-decoration-none boutique-item">
+                <div class="card zoom" style="transition: transform 0.5s ease;">
+                    <div class="card-img-top position-relative" style="height: 250px;background-color: #c7c7c7;">
+                        <img src="/public/images/<?= $item->getImage() ?>" class="position-absolute top-50 start-50 translate-middle" style="max-height: 100%; max-width: 100%;" />
+                        <div class="position-absolute top-0 px-3 py-2 bg-dark text-white d-flex align-items-center"><?= $item->getName() ?></div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text fw-bold text-center"><?= $item->getPrix() ?>€</p>
+                    </div>
+                </div>
+            </a>
+        <?php endforeach ?>
+    </div>
+</div>
+
+<script>
+    const searchInput = document.querySelector('#search-input');
+    const searchButton = document.querySelector('#search-button');
+    const items = document.querySelectorAll('.boutique-item');
+
+    const filterItems = () => {
+        const query = searchInput.value.toLowerCase().trim();
+        items.forEach(item => {
+            const name = item.querySelector('.card-img-top div').textContent.toLowerCase();
+            if (name.includes(query)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    };
+
+    searchInput.addEventListener('input', filterItems);
+    searchButton.addEventListener('click', filterItems);
+</script>

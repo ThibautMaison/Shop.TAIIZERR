@@ -4,48 +4,33 @@ require_once "Composant.class.php";
 
 class ComposantManager extends Model
 {
-    private $Boutique;
-    private $Users;
+    private $Boutique = [];
+    private $Users = [];
 
-    public function ajoutBoutique($Composant)
-    {
-        $this->Boutique[] = $Composant;
-    }
+    public function ajoutBoutique($Composant) { $this->Boutique[] = $Composant; }
+    public function ajoutUsers($User) { $this->Users[] = $User; }
 
-    public function ajoutUsers($User)
-    {
-        $this->Users[] = $User;
-    }
-
-    public function getBoutique()
-    {
-        return $this->Boutique;
-    }
+    public function getBoutique() { return $this->Boutique; }
 
     public function chargementBoutique()
     {
-        $req = $this->getBdd()->prepare("SELECT * FROM Boutique");
-        $req->execute();
+        $req = $this->getBdd()->query("SELECT * FROM Boutique ORDER BY RAND()");
         $mesBoutique = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
-        shuffle($mesBoutique);
+        
         foreach ($mesBoutique as $Composant) {
             $l = new Composant($Composant["id"], $Composant["Name"], $Composant["Description"], $Composant["Prix"], $Composant["Lien"], $Composant["image"], $Composant["idCategorie"]);
             $this->ajoutBoutique($l);
-
         }
     }
 
     public function chargerBoutiqueParCategorie($idCategorie)
     {
-        $requete = "SELECT * FROM Boutique WHERE idCategorie = :idCategorie";
+        $requete = "SELECT * FROM Boutique WHERE idCategorie = :idCategorie ORDER BY RAND()";
         $req = $this->getBdd()->prepare($requete);
-        $req->execute(array(
-            'idCategorie' => $idCategorie
-        ));
+        $req->execute(['idCategorie' => $idCategorie]);
         $mesBoutique = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
-        shuffle($mesBoutique);
 
         foreach ($mesBoutique as $boutique) {
             $l = new Composant($boutique["id"], $boutique["Name"], $boutique["Description"], $boutique["Prix"], $boutique["Lien"], $boutique["image"], $boutique["idCategorie"]);
@@ -55,12 +40,9 @@ class ComposantManager extends Model
 
     public function chargementBoutiqueStuffperso()
     {
-        $req = $this->getBdd()->prepare("SELECT * FROM Boutique where Name IN ('BENQ XL2566K' , 'GSR-SE RED' , 'HYPERX ALPHA' , 'X2 MINI' , 'ZOWIE CAMADE' , 'PC GAMING')");
-        $req->execute();
+        $req = $this->getBdd()->query("SELECT * FROM Boutique WHERE Name IN ('BENQ XL2566K' , 'GSR-SE RED' , 'HYPERX ALPHA' , 'X2 MINI' , 'ZOWIE CAMADE' , 'PC GAMING') ORDER BY RAND()");
         $mesBoutique = $req->fetchAll(PDO::FETCH_ASSOC);
         $req->closeCursor();
-        shuffle($mesBoutique);
-
 
         foreach ($mesBoutique as $Stuffperso) {
             $l = new Composant($Stuffperso["id"], $Stuffperso["Name"], $Stuffperso["Description"], $Stuffperso["Prix"], $Stuffperso["Lien"], $Stuffperso["image"], $Stuffperso["idCategorie"]);
