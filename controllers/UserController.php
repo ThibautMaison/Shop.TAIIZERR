@@ -28,8 +28,8 @@ class UserController {
     }
 
     public function ajoutUsersValidation(){
-        $this->UsersManager->ajoutUsersBd($_POST["Pseudo"],$_POST["Email"],$_POST["Password"]);
-        // header("Location: ".URL."connexion"); 
+        $this->UsersManager->ajoutUsersBd($_SESSION["Pseudo"],$_SESSION["Email"],$_SESSION["Password"]);
+        header("Location: ".URL."accueil"); 
     
         }
         public function ajoutUsersValidationAdmin(){
@@ -40,7 +40,7 @@ class UserController {
 
     public function UsersValidation(){
         $this->UsersManager->ConnexionUser($_POST["Pseudo"],$_POST["Password"]);
-        header("Location: ".URL."accueil"); 
+        header("Location: " . URL . "accueil");
     }
 
 
